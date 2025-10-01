@@ -166,12 +166,6 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Processing Layer: Ready for multiple API requests');
     console.log('UI Layer: Event listeners attached');
     
-    // Check if API key is configured
-    if (API_KEY === 'jUx4LE3OfZAeRuhrzc73fw==mKvNwbYZU6Ha7wiS') {
-        showError('Please add your API Ninjas key to script.js');
-        return;
-    }
-    
     // Load initial content
     refreshContent();
 });
