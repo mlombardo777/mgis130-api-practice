@@ -3,14 +3,372 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Inspiration & Facts</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Mili's Thoughts - Daily Inspiration & Facts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #000;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(107, 33, 168, 0.3);
+            border: 1px solid rgba(107, 33, 168, 0.2);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid rgba(107, 33, 168, 0.3);
+        }
+
+        .brand-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .brand-logo {
+            font-size: 3em;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 0 30px rgba(107, 33, 168, 0.8);
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #6b21a8 0%, #9333ea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: #9ca3af;
+            font-size: 1.2em;
+            font-weight: 300;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .refresh-btn {
+            padding: 16px 36px;
+            background: linear-gradient(135deg, #6b21a8 0%, #9333ea 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 20px rgba(107, 33, 168, 0.4);
+        }
+
+        .refresh-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(107, 33, 168, 0.6);
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+        }
+
+        .refresh-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .category-selector {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .category-selector label {
+            font-weight: 600;
+            color: #fff;
+            font-size: 0.95em;
+        }
+
+        .category-selector select {
+            padding: 12px 18px;
+            border: 2px solid rgba(107, 33, 168, 0.4);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .category-selector select:focus {
+            border-color: #6b21a8;
+            background: rgba(107, 33, 168, 0.1);
+        }
+
+        .category-selector select option {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .content-card {
+            background: linear-gradient(135deg, rgba(107, 33, 168, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(107, 33, 168, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(107, 33, 168, 0.6);
+            box-shadow: 0 10px 40px rgba(107, 33, 168, 0.3);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #6b21a8 0%, #9333ea 100%);
+            color: #fff;
+            padding: 24px;
+            text-align: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-header h2 {
+            font-size: 1.3em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .card-content {
+            padding: 35px;
+            min-height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .quote-text {
+            font-size: 1.25em;
+            font-style: italic;
+            color: #fff;
+            margin-bottom: 20px;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .quote-author {
+            font-size: 1em;
+            color: #9333ea;
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .fact-text {
+            font-size: 1.15em;
+            color: #fff;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        .loading-message {
+            color: #9ca3af;
+            font-style: italic;
+        }
+
+        .loading-indicator {
+            text-align: center;
+            padding: 20px;
+            font-size: 1.1em;
+            color: #6b21a8;
+            font-weight: 600;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .error-display {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            color: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            margin: 20px 0;
+            border: 1px solid rgba(220, 38, 38, 0.3);
+        }
+
+        .error-display h3 {
+            margin-bottom: 10px;
+            font-size: 1.4em;
+        }
+
+        .error-display button {
+            margin-top: 15px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .error-display button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #fff;
+        }
+
+        .info-section {
+            background: rgba(107, 33, 168, 0.05);
+            padding: 35px;
+            border-radius: 16px;
+            border-left: 4px solid #6b21a8;
+            border: 1px solid rgba(107, 33, 168, 0.2);
+        }
+
+        .info-section h3 {
+            color: #fff;
+            margin-bottom: 25px;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .layer {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid rgba(107, 33, 168, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .layer:hover {
+            background: rgba(107, 33, 168, 0.1);
+            border-color: rgba(107, 33, 168, 0.4);
+        }
+
+        .layer h4 {
+            color: #9333ea;
+            margin-bottom: 15px;
+            font-size: 1.15em;
+            font-weight: 600;
+        }
+
+        .layer ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .layer li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+            color: #d1d5db;
+            font-size: 0.95em;
+        }
+
+        .layer li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #6b21a8;
+            font-weight: bold;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+
+            .brand-logo {
+                font-size: 2em;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .refresh-btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .architecture-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation for content updates */
+        .content-updating {
+            opacity: 0.4;
+            transform: scale(0.98);
+            transition: all 0.3s ease;
+        }
+
+        .error-content p {
+            margin-bottom: 8px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>📚 Daily Inspiration & Facts</h1>
-            <p class="subtitle">Fuel your mind with wisdom and knowledge</p>
+            <h1>Mili's Thoughts</h1>
+            <p class="subtitle">Daily inspiration & fascinating facts</p>
         </header>
         
         <!-- Control Panel -->
@@ -102,6 +460,207 @@
         </div>
     </div>
     
-    <script src="script.js"></script>
+    <script>
+        // API Configuration - Data Layer
+        const API_KEY = 'jUx4LE3OfZAeRuhrzc73fw==mKvNwbYZU6Ha7wiS'; // Students replace with their API Ninjas key
+        const QUOTES_URL = 'https://api.api-ninjas.com/v1/quotes';
+        const FACTS_URL = 'https://api.api-ninjas.com/v1/facts';
+
+        // Get DOM elements
+        const refreshBtn = document.getElementById('refreshBtn');
+        const quoteCategory = document.getElementById('quoteCategory');
+        const quoteDisplay = document.getElementById('quoteDisplay');
+        const factDisplay = document.getElementById('factDisplay');
+        const loadingQuote = document.getElementById('loadingQuote');
+        const loadingFact = document.getElementById('loadingFact');
+        const errorDisplay = document.getElementById('errorDisplay');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Processing Layer - API Request Function
+        async function makeAPIRequest(url, params = {}) {
+            const queryParams = new URLSearchParams(params).toString();
+            const fullUrl = queryParams ? `${url}?${queryParams}` : url;
+            
+            console.log('Making request to:', fullUrl);
+            
+            try {
+                const response = await fetch(fullUrl, {
+                    method: 'GET',
+                    headers: {
+                        'X-Api-Key': API_KEY,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('API Error:', errorText);
+                    throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log('Response data:', data);
+                return data;
+            } catch (error) {
+                console.error('Fetch error:', error);
+                throw error;
+            }
+        }
+
+        // Processing Layer - Get Quote Data
+        async function getQuote(category) {
+            try {
+                showLoading('quote', true);
+                
+                const data = await makeAPIRequest(QUOTES_URL);
+                
+                if (!data || data.length === 0) {
+                    throw new Error('No quotes found for this category');
+                }
+                
+                return data[0]; // API returns array, we want first quote
+            } catch (error) {
+                throw new Error(`Failed to get quote: ${error.message}`);
+            } finally {
+                showLoading('quote', false);
+            }
+        }
+
+        // Processing Layer - Get Fact Data
+        async function getFact() {
+            try {
+                showLoading('fact', true);
+                
+                const data = await makeAPIRequest(FACTS_URL);
+                
+                if (!data || data.length === 0) {
+                    throw new Error('No facts available');
+                }
+                
+                return data[0]; // API returns array, we want first fact
+            } catch (error) {
+                throw new Error(`Failed to get fact: ${error.message}`);
+            } finally {
+                showLoading('fact', false);
+            }
+        }
+
+        // UI Layer - Display Functions
+        function displayQuote(quoteData) {
+            quoteDisplay.innerHTML = `
+                <div class="quote-content">
+                    <p class="quote-text">"${quoteData.quote}"</p>
+                    <p class="quote-author">— ${quoteData.author}</p>
+                </div>
+            `;
+        }
+
+        function displayFact(factData) {
+            factDisplay.innerHTML = `
+                <div class="fact-content">
+                    <p class="fact-text">${factData.fact}</p>
+                </div>
+            `;
+        }
+
+        function showLoading(type, isLoading) {
+            const loadingElement = type === 'quote' ? loadingQuote : loadingFact;
+            const contentElement = type === 'quote' ? quoteDisplay : factDisplay;
+            
+            if (isLoading) {
+                loadingElement.classList.remove('hidden');
+                contentElement.classList.add('content-updating');
+                refreshBtn.disabled = true;
+            } else {
+                loadingElement.classList.add('hidden');
+                contentElement.classList.remove('content-updating');
+                refreshBtn.disabled = false;
+            }
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorDisplay.classList.remove('hidden');
+            
+            // Hide error after 5 seconds
+            setTimeout(() => {
+                errorDisplay.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Main Functions - Bringing it all together
+        async function loadQuote() {
+            try {
+                const category = quoteCategory.value;
+                const quoteData = await getQuote(category);
+                displayQuote(quoteData);
+            } catch (error) {
+                console.error('Quote loading error:', error);
+                quoteDisplay.innerHTML = `
+                    <div class="error-content">
+                        <p>❌ Unable to load quote</p>
+                        <p style="font-size: 0.9em; color: #9ca3af;">${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function loadFact() {
+            try {
+                const factData = await getFact();
+                displayFact(factData);
+            } catch (error) {
+                console.error('Fact loading error:', error);
+                factDisplay.innerHTML = `
+                    <div class="error-content">
+                        <p>❌ Unable to load fact</p>
+                        <p style="font-size: 0.9em; color: #9ca3af;">${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        async function refreshContent() {
+            // Load both quote and fact simultaneously
+            await Promise.all([
+                loadQuote(),
+                loadFact()
+            ]);
+        }
+
+        // Event Listeners - UI Layer
+        refreshBtn.addEventListener('click', refreshContent);
+
+        quoteCategory.addEventListener('change', loadQuote);
+
+        // Initialize app
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('📚 Mili\'s Thoughts - Daily Inspiration & Facts loaded!');
+            console.log('Data Layer: Connected to API Ninjas (Quotes + Facts)');
+            console.log('Processing Layer: Ready for multiple API requests');
+            console.log('UI Layer: Event listeners attached');
+            
+            // Load initial content
+            refreshContent();
+        });
+
+        // Professional error handling
+        window.addEventListener('error', (e) => {
+            console.error('Application error:', e);
+            showError('Something went wrong. Please refresh the page.');
+        });
+
+        // Handle network connectivity issues
+        window.addEventListener('online', () => {
+            console.log('Connection restored');
+            refreshContent();
+        });
+
+        window.addEventListener('offline', () => {
+            showError('No internet connection. Content will update when connection is restored.');
+        });
+    </script>
 </body>
 </html>
